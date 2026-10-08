@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Same spot as the Luma checkout: directly below the shipping methods -->
+        <referenceContainer name="checkout.shipping.methods.after">
+            <block name="component-messenger-boxo-packaging"
+                   template="Hyva_Checkout::page/messenger.phtml">
+                <arguments>
+                    <argument name="event_prefix" xsi:type="string">boxo:packaging</argument>
+                </arguments>
+            </block>
+            <block name="checkout.boxo.packaging"
+                   template="Magmodules_BoxoHyvaCheckout::checkout/packaging.phtml"
+                   ifconfig="magmodules_boxo/general/active"
+                   after="component-messenger-boxo-packaging">
+                <arguments>
+                    <argument name="magewire" xsi:type="object">
+                        Magmodules\BoxoHyvaCheckout\Magewire\Checkout\Packaging
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- BOXO artwork for the packaging line in the Hyvä order summary -->
+    <type name="Hyva\Checkout\Magewire\Checkout\PriceSummary\CartItems">
+        <plugin name="magmodules_boxohyvacheckout_packaging_thumbnail"
+                type="Magmodules\BoxoHyvaCheckout\Plugin\Magewire\PackagingThumbnail"/>
+    </type>
+</config>

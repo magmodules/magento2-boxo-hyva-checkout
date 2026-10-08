@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Lets the Hyvä theme build pick up the Tailwind classes in our templates -->
+    <event name="hyva_config_generate_before">
+        <observer name="magmodules_boxohyvacheckout_register_module"
+                  instance="Magmodules\BoxoHyvaCheckout\Observer\HyvaConfigGenerateBefore\RegisterModuleForHyvaConfig"/>
+    </event>
+</config>

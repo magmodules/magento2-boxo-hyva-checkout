@@ -1,0 +1,146 @@
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Styling for the BOXO packaging options in Hyvä Checkout. Plain CSS rather
+ * than Tailwind utilities so it renders the same whether or not the theme is
+ * rebuilt with this module registered. Override the variables on
+ * .boxo-packaging to align it with your theme.
+ */
+.boxo-packaging {
+    --boxo-ink: #1b1f2b;
+    --boxo-muted: #8b93a7;
+    --boxo-accent: #00b578;
+    --boxo-accent-bg: #e8f9f1;
+    --boxo-border: #e3e7ee;
+    --boxo-radius: 10px;
+    margin-top: 1.5rem;
+    border: 0;
+    padding: 0;
+}
+
+.boxo-legend {
+    margin-bottom: .75rem;
+    color: var(--boxo-ink);
+    font-weight: 600;
+}
+
+.boxo-options {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.boxo-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: .625rem;
+    padding: 1rem;
+    border: 1px solid var(--boxo-border);
+    border-radius: var(--boxo-radius);
+    background: #FFFFFF;
+    transition: border-color .15s ease, background-color .15s ease;
+}
+
+.boxo-option:hover,
+.boxo-option-active {
+    border-color: var(--boxo-accent);
+}
+
+.boxo-option-active {
+    background: var(--boxo-accent-bg);
+}
+
+.boxo-option-label {
+    display: flex;
+    align-items: center;
+    gap: .625rem;
+    margin: 0;
+    color: var(--boxo-ink);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Right-hand side of the row: the BOXO mark or the single-use surcharge */
+.boxo-option-mark {
+    flex: 0 0 auto;
+    margin-left: auto;
+    color: var(--boxo-ink);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.boxo-heart {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 18px;
+    background: url('../../Magmodules_Boxo/images/heart.svg') no-repeat center center;
+    background-size: contain;
+}
+
+/* The asset is a wide 1080x275 lockup: set the height, the width follows */
+.boxo-logo {
+    display: block;
+    width: 62px;
+    height: 16px;
+    background: url('../../Magmodules_Boxo/images/boxo-logo.svg') no-repeat center right;
+    background-size: contain;
+}
+
+.boxo-info {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.boxo-info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    color: var(--boxo-muted);
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1;
+    transition: color .15s ease, border-color .15s ease;
+}
+
+.boxo-info:hover .boxo-info-icon,
+.boxo-info:focus .boxo-info-icon {
+    color: var(--boxo-accent);
+    border-color: var(--boxo-accent);
+}
+
+/* Opens downward so it never covers the single-use option below */
+.boxo-tooltip {
+    display: none;
+    position: absolute;
+    left: -12px;
+    top: calc(100% + 8px);
+    z-index: 10;
+    width: 280px;
+    padding: 10px 12px;
+    background: rgba(27, 31, 43, 0.95);
+    color: #FFFFFF;
+    border-radius: var(--boxo-radius);
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.4;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+}
+
+.boxo-info:hover .boxo-tooltip,
+.boxo-info:focus .boxo-tooltip {
+    display: block;
+}

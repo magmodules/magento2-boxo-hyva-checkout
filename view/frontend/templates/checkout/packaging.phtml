@@ -1,0 +1,86 @@
+<?php
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+use Magmodules\BoxoHyvaCheckout\Magewire\Checkout\Packaging;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var Packaging $magewire */
+
+$config = $magewire->getViewConfig();
+?>
+<div id="boxo-packaging">
+    <?php if ($magewire->available && ($config['enabled'] ?? false)): ?>
+        <?php
+        $options = [
+            'reusable' => [
+                'label' => (string)($config['reusableLabel'] ?? ''),
+                'reusable' => true,
+            ],
+            'disposable' => [
+                'label' => (string)($config['singleUseLabel'] ?? ''),
+                'reusable' => false,
+            ],
+        ];
+        $disposableAmount = (float)($config['disposableAmount'] ?? 0);
+        ?>
+        <fieldset class="boxo-packaging">
+            <legend class="boxo-legend">
+                <?= $escaper->escapeHtml($config['heading'] ?? '') ?>
+            </legend>
+
+            <div class="boxo-options" role="radiogroup">
+                <?php foreach ($options as $value => $option): ?>
+                    <div class="boxo-option<?= $magewire->selection === $value ? ' boxo-option-active' : '' ?>"
+                         wire:key="boxo-<?= /* @noEscape */ $value ?>"
+                    >
+                        <label class="boxo-option-label" for="boxo-option-<?= /* @noEscape */ $value ?>">
+                            <input type="radio"
+                                   id="boxo-option-<?= /* @noEscape */ $value ?>"
+                                   name="boxo_packaging"
+                                   class="form-radio"
+                                   value="<?= /* @noEscape */ $value ?>"
+                                   wire:model="selection"
+                            >
+                            <?php if ($option['reusable']): ?>
+                                <span class="boxo-heart" aria-hidden="true"></span>
+                            <?php endif ?>
+                            <span><?= $escaper->escapeHtml($option['label']) ?></span>
+                        </label>
+                        <?php if ($option['reusable'] && !empty($config['infoUrl'])): ?>
+                            <?php // Outside the label so opening the link doesn't select the option ?>
+                            <a class="boxo-info"
+                               href="<?= $escaper->escapeUrl($config['infoUrl']) ?>"
+                               target="_blank"
+                               rel="noopener"
+                               aria-label="<?= $escaper->escapeHtmlAttr(__('More information about BOXO')) ?>"
+                            >
+                                <span class="boxo-info-icon" aria-hidden="true">i</span>
+                                <span class="boxo-tooltip" role="tooltip">
+                                    <?= $escaper->escapeHtml(__('Yes, there is a return point near you! Drop off the packaging at a return point and immediately receive your deposit back. Click for more information.')) ?>
+                                </span>
+                            </a>
+                        <?php endif ?>
+                        <?php if ($option['reusable']): ?>
+                            <span class="boxo-option-mark boxo-logo" role="img"
+                                  aria-label="<?= $escaper->escapeHtmlAttr(__('BOXO')) ?>"></span>
+                        <?php elseif ($disposableAmount > 0): ?>
+                            <span class="boxo-option-mark">
+                                <span aria-hidden="true">+</span>
+                                <?= $escaper->escapeHtml($config['disposableFormatted'] ?? '') ?>
+                            </span>
+                        <?php else: ?>
+                            <span class="boxo-option-mark"><?= $escaper->escapeHtml(__('Free')) ?></span>
+                        <?php endif ?>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        </fieldset>
+    <?php endif ?>
+</div>
